@@ -1,112 +1,77 @@
+#  Zero-Knowledge Proof Authentication System (Schnorr Protocol)
 
-# Galaxy Cinema Hall Management System 🎬
+##  Project Overview
+This project is a **console-based Zero-Knowledge Proof (ZKP) Authentication System** implemented in **C++**, based on the **Schnorr Identification Protocol**.  
+It demonstrates how a prover can authenticate themselves **without revealing their secret key**, using modular arithmetic and cryptographic principles.
 
-A comprehensive **C++ command-line application** that simulates the core operations of a cinema hall.  
-This project is designed for academic purposes and demonstrates concepts such as **file handling, functions, structures, arrays, and role-based access control**.
-
----
-
-## 📌 Features
-
-### 🔐 Authentication System
-- Separate **Admin** and **User** roles
-- Secure login using stored credentials
-
-### 🎥 Movie Management (Admin)
-- Add new movies
-- View ongoing movies
-- Delete movies
-- Save and load movie data from files
-
-### 🎟️ Booking System (User)
-- View available movies
-- Book tickets
-- Seat allocation
-- View booking details
-
-### 💰 Revenue & Records
-- Persistent storage using files
-- Load/save users, movies, and bookings
-- View booking history
-
-### 🖥️ User-Friendly Console UI
-- Menu-driven interface
-- Console colors and headers (Windows-based)
+The program is designed as a **university-level cryptography project**, with added **visual enhancements**, **128-bit arithmetic**, and **security audits** for educational clarity.
 
 ---
 
-## 🧑‍💼 Roles & Permissions
-
-### Admin
-- Manage movies
-- View all bookings
-- Control cinema operations
-
-### User
-- Browse movies
-- Book tickets
-- View personal bookings
+##  Key Features
+-  Implements **Schnorr Zero-Knowledge Proof**
+-  Supports **128-bit unsigned integers**
+-  Secure **modular exponentiation & multiplication**
+-  **Miller–Rabin primality test** for modulus validation
+-  Strength analysis of modulus and secret key
+-  Colorized Windows console UI
+-  Step-by-step cryptographic calculations
 
 ---
 
-## 🛠️ Technologies Used
+##  Cryptographic Flow (Schnorr Protocol)
 
-- **Language:** C++  
-- **IDE:** Dev-C++ / Visual Studio / Code::Blocks  
-- **Platform:** Windows  
-- **Libraries:**  
-  - `<iostream>`  
-  - `<fstream>`  
-  - `<iomanip>`  
-  - `<string>`  
-  - `<conio.h>`  
-  - `<windows.h>`  
+1. **System Setup**
+   - Select a prime modulus `m`
+   - Choose generator `g = 2`
+   - Prover selects secret key `x`
+   - Public key computed as  
+     ```
+     y = g^x mod m
+     ```
 
----
+2. **Commitment**
+   - Prover selects random session secret `k`
+   - Computes  
+     ```
+     R = g^k mod m
+     ```
 
-## ▶️ How to Run
+3. **Challenge**
+   - Verifier sends a random challenge `e`
 
-1. Clone or download the project
-2. Open the `.cpp` file in a C++ compiler (Windows recommended)
-3. Compile and run the program
-4. Follow on-screen menu instructions
+4. **Response**
+   - Prover computes  
+     ```
+     s = (k + e·x) mod (m − 1)
+     ```
 
-```bash
-g++ CS-2025-76ZKP.cpp -o cinema
-cinema
-```
-
----
-
-## 📂 File Structure
-
-```
-├── CS-2025-76ZKP.cpp
-├── users.txt
-├── movies.txt
-├── bookings.txt
-└── README.md
-```
+5. **Verification**
+   - Verifier checks:
+     ```
+     g^s mod m == (R · y^e) mod m
+     ```
+   - If equal → ✅ Authentication successful
 
 ---
 
-## 📖 Learning Outcomes
-
-- File handling in C++
-- Menu-driven program design
-- Role-based system implementation
-- Real-world system simulation
-
----
-
-## 👨‍🎓 Author
-
-**Ali Fayyaz**  
-Computer Science Student  
-Academic Project – 2025
+## 🛠 Technologies Used
+- **Language:** C++
+- **Compiler:** GCC / MinGW
+- **Platform:** Windows
+- **Libraries:**
+  - `<iostream>`
+  - `<string>`
+  - `<algorithm>`
+  - `<iomanip>`
+  - `<cmath>`
+  - `<ctime>`
+  - `<windows.h>`
 
 ---
 
-## 📜 License
+##  Key Implementation Highlights
 
-This project is for **educational use only**.
+###  128-bit Integer Handling
+```cpp
+typedef unsigned __int128 uint128;
