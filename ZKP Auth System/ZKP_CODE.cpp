@@ -8,10 +8,10 @@
 
 using namespace std;
 
-// Using unsigned for 128-bit headroom to prevent overflow
+
 typedef unsigned __int128 uint128;
 
-// --- AESTHETIC CONSTANTS ---
+
 #define WHITE 15
 #define BLUE 11 
 
@@ -19,7 +19,7 @@ void set_color(int color) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
-// --- 1. Custom 128-bit Input Handler ---
+
 uint128 stringTo128(string s) {
     uint128 res = 0;
     for (char c : s) {
@@ -40,7 +40,7 @@ string int128ToString(uint128 n) {
     return s;
 }
 
-// --- 3. Safe Modular Multiplication ---
+
 uint128 mulmod(uint128 a, uint128 b, uint128 m) {
     uint128 res = 0;
     a %= m;
@@ -64,7 +64,7 @@ uint128 power(uint128 base, uint128 exp, uint128 mod) {
     return res;
 }
 
-// --- 5. Miller-Rabin Primality Test ---
+
 bool millerRabin(uint128 n) {
     if (n < 2) return false;
     if (n == 2 || n == 3) return true;
@@ -105,7 +105,7 @@ void pause() {
     cin.get();
 }
 
-// --- NEW VISUAL HEADER (Universal Stacked Style) ---
+
 void main_header(string title) {
     clearScreen();
     set_color(BLUE);
@@ -165,7 +165,7 @@ int main() {
         cout << endl;
 
         if (!millerRabin(m)) {
-            set_color(BLUE); // Using Blue for consistency as requested
+            set_color(BLUE); 
             cout << "  [!] WARNING: Modulus is COMPOSITE!" << endl;
             cout << "      Note: ZKP requires a Prime Modulus for math stability." << endl;
             set_color(WHITE);
